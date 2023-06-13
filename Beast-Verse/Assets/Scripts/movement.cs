@@ -14,8 +14,14 @@ public class movement : MonoBehaviour
     public float maxDistance;
     public LayerMask layerMask;
 
-
     public Vector2 turn;
+
+    private float activeMoveSpeed;
+    public float dashSpeed;
+    public float dashLength = .5f, dashCooldown = 1f;
+
+    private float dashCounter;
+    private float dashCoolCounter;
 
 
     [SerializeField]
@@ -25,6 +31,7 @@ public class movement : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        activeMoveSpeed = moveSpeed;
     }
 
     void FixedUpdate(){
@@ -60,8 +67,8 @@ public class movement : MonoBehaviour
 
     void MonsterMovement()
     {
-        float xAxis = Input.GetAxis("Horizontal") * moveSpeed * Time.deltaTime;
-        float zAxis = Input.GetAxis("Vertical") * moveSpeed * Time.deltaTime;
+        float xAxis = Input.GetAxis("Horizontal") * activeMoveSpeed * Time.deltaTime;
+        float zAxis = Input.GetAxis("Vertical") * activeMoveSpeed * Time.deltaTime;
 
         turn.x = Input.GetAxis("Mouse X")*_mouseSensitivity;
 
